@@ -1,0 +1,17 @@
+#decorator of type checking
+def type_check(expected_type): 
+    #takes the type_check
+    def decorator(func):
+        # takes the fuction which has to be decorating
+        def wrapper(arg):
+           # check if arg is expected_type
+           if not isinstance(arg,expected_type):
+               raise typeerror(f" argument must be of {expected_type._name_}")
+           return func(arg)
+        return wrapper
+    return decorator    
+@ type_check(int)
+def square(n):
+    return n*n 
+print(square(7))
+print(square("7"))
