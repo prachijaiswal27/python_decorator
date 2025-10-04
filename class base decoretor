@@ -1,0 +1,11 @@
+# classed based decorator haar baar function call karne par ek hi message print kar vaye
+class logger:
+    def __init__(self,func):
+        self.func=func # ye wo function hai jise decorate karna hai
+    def __call__(self,*args,**kwargs):
+        print(f"calling {self.func.__name__}")
+        return self.func(*args,**kwargs) # ye original function ko call karta hai
+@ logger
+def greet():
+    print("hello!")
+greet()
