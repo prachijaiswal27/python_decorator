@@ -1,0 +1,17 @@
+import time 
+def time_decorator(func):
+    def wrapper(*args,**kwargs):
+        start_time=time.time()#record star time
+        result=func(*args,**kwargs)#call original function 
+        end_time=time.time()#record end time
+        elapsed_time=end_time-start_time
+        print(f"function {func} took {elapsed_time} second")
+        return result
+    return wrapper
+@time_decorator
+def example_function():
+    print("function is running")
+    time.sleep(2)
+    print("function completed")
+example_function()    
+    
