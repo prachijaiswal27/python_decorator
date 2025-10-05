@@ -1,0 +1,38 @@
+# authorization decorator (admin_only)that checks if given user has admin privileges before allowing to function
+def admin_only(func):
+    def wrapper(user,*args,**kwargs):
+        if not user.get("is admin"):
+            raise PermissionError("acess denied:admins only")
+        return fun(user,*args,**kwargs)
+    return wrapper
+
+@ admin_only
+def delete_database(user):
+    print(f"{user['username']}deleted the database!")
+@ admin_only
+def view_logs(user):
+    print(f"{user['username']} viewing the logs")
+    
+admin_user={
+    "username": "prchi",
+    "is_admin": True
+}
+regular_user={
+    "username" :"xyz",
+    "is_admin": False
+}
+print("trying with admin user")
+try:
+    delete_database(admin_user)
+    view_logs(admin_user)
+except PermissionError as e:
+    print(e)
+print("\n trying with regular user" )
+try:
+    delete_database(admin_user)
+except PermissionError as e:
+    print(e)
+try:
+    view_logs(admin_user)
+except PermissionError as e:
+    print(e)
